@@ -1,8 +1,15 @@
-import 'package:app_flutter/ui/screens/homescreen.dart';
+import 'package:app_flutter/models/auth.dart';
+import 'package:app_flutter/ui/screens/home.dart';
+import 'package:app_flutter/ui/screens/main.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (context) => AuthService(),
+    child: MyApp(),
+  ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -10,6 +17,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/main': (context) => MainPage(),
+        '/home': (context) => HomePage(),
+//        '/help': (context) => HelpPage();
+      },
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -20,7 +33,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         //visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Item Finder'),
+      home: MainPage(title: "COVID Help Portal"),
     );
   }
 }
